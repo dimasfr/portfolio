@@ -41,7 +41,9 @@
     <section 
       id="projects" 
       data-scroll-section 
-      class="container mx-auto px-4 py-16">
+      class="container mx-auto px-4 py-16
+      bg-gray-100 text-gray-900 
+      dark:bg-gray-800 dark:text-gray-100 transition-colors duration-300">
       <HandledProjects />
     </section>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto px-4 py-16">
-    <h3 class="text-3xl font-bold mb-8 text-center">Projects</h3>
-
+    <h2 class="text-3xl font-bold text-center mb-12">Projects</h2>
     <div class="relative">
+      
       <Swiper
           :modules="modules"
           :slides-per-view="3"
@@ -22,8 +22,8 @@
                 class="w-full h-48 object-cover"
               >
               <div class="p-4">
-                <h4 class="font-bold text-lg">{{ project.title }}</h4>
-                <p class="text-gray-600">{{ project.description }}</p>
+                <h4 class="text-lg font-bold text-gray-900">{{ project.title }}</h4>
+                <p class="text-gray-600">{{ project.language }}</p>
               </div>
             </div>
           </SwiperSlide>
@@ -47,7 +47,7 @@
           :alt="selectedProject.title"
           class="w-full h-80 object-cover rounded-md"
         >
-        <h4 class="text-2xl font-bold mt-4">{{ selectedProject.title }}</h4>
+        <h4 class="text-2xl font-bold mt-4 text-gray-900">{{ selectedProject.title }}</h4>
         <p class="text-gray-600 mt-2">{{ selectedProject.description }}</p>
 
         <!-- language bisa ditambahkan nanti -->
@@ -78,124 +78,124 @@ const openModal = (project) => {
 
 const projects = [
   { 
-    title: 'Eprocurement', 
-    description: 'Landing', 
+    title: 'E-Procurement', 
+    description: 'The E-Procurement platform is a digital system used by BPJSTK to manage the procurement of goods and services online. It connects Vendors with BPJSTK in tender activities, ensuring the process is more transparent, efficient, and well-documented.', 
     image: '/portfolio/eprocurement.png',
     language: "Vue, Express"
   },
   { 
     title: 'Smile', 
-    description: 'LAnding.', 
+    description: 'Smile is an integrated application owned by BPJSTK, consisting of various internal modules to support organizational operations. Among these modules, I focus primarily on the E-Procurement and Vendor Management System (VMS).', 
     image: '/portfolio/smile.png',
-    language: "-"
+    language: "jQuery, CSS, PHP"
   },
   { 
-    title: 'Inoac', 
-    description: 'Online store.', 
+    title: 'INOAC', 
+    description: 'INOAC is a manufacturing application that focuses on managing production processes for foam (busa) products. The system is designed to support the end-to-end manufacturing workflow, including order management, production tracking, inventory handling, and quality control.', 
     image: '/portfolio/inoac.png',
-    language: "-"
+    language: "React, TailwindCSS"
   },
   { 
     title: 'DevConnector', 
-    description: 'Blogging platform.', 
+    description: 'DevConnector is a social media–like platform built as part of a comprehensive Udemy course project. The application allows developers to create profiles, share posts, connect with other developers, and engage in discussions, mimicking the core functionality of a professional networking site.', 
     image: '/portfolio/devconnector.png',
-    language: "-"
+    language: "React, SCSS, Node, Expess, MongoDb"
   },
   { 
     title: 'Schoolease', 
-    description: 'Analytics dashboard.', 
+    description: 'Schoolease is an academic management website designed to support schools and educational institutions. Beyond its core focus on information management, the platform also provides essential features such as attendance tracking and online examinations.', 
     image: '/portfolio/schoolease.png',
-    language: "-"
+    language: "Vite, Vue, SCSS, Node, Express, MySQL"
   },
   { 
     title: 'School Datastore', 
-    description: 'Realtime chat.', 
+    description: 'School Datastore is a platform focused on centralized document storage for schools. It allows educational institutions to securely manage, organize, and access important documents in one place, ensuring efficiency, and easy retrieval.', 
     image: '/portfolio/datastore.png',
-    language: "-"
+    language: "Vue, Typescript, SCSS, Node, Express, MySQL"
   },
   { 
     title: 'Medeva', 
-    description: 'Marketing landing page.', 
+    description: 'Medeva is a clinic management application designed to streamline healthcare operations. The system includes features for doctor data management, duty scheduling, outpatient services, and pharmacy integration.', 
     image: '/portfolio/medeva.png',
-    language: "-"
+    language: "jQuery, Bootstrap, CodeIgniter, MySQL"
   },
   { 
-    title: 'Statistical Process Control', 
-    description: 'Marketing landing page.', 
+    title: 'SPC', 
+    description: 'SPC or Statistical Process Control is a manufacturing application module developed to monitor and control production quality using statistical methods. The system tracks process data in real time, analyzes variations, and generates insights to ensure products consistently meet quality standards.', 
     image: '/portfolio/spc.png',
-    language: "-"
+    language: "jQuery, Bootstrap, CodeIgniter, MySQL"
   },
   { 
     title: 'Manufacture Quality', 
-    description: 'Marketing landing page.', 
+    description: 'Manufacture Quality is an application module designed to ensure that production outputs consistently meet defined standards. It focuses on quality control, inspection, and reporting across different stages of the manufacturing process.', 
     image: '/portfolio/man-qlt.png',
-    language: "-"
+    language: "CSS, jQuery, CodeIgniter, MySQL"
   },
   { 
     title: 'Manufacture Production', 
-    description: 'Marketing landing page.', 
+    description: 'Manufacture Production is an application module that manages and monitors the end-to-end production process in a manufacturing environment. It covers areas such as production planning, scheduling, BOM, tracking, and reporting, ensuring that resources are utilized efficiently and output targets are achieved.', 
     image: '/portfolio/man-prd.png',
-    language: "-"
+    language: "CSS, jQuery, CodeIgniter, MySQL"
   },
   { 
     title: 'Fishing Vessel Recording System', 
-    description: 'Marketing landing page.', 
+    description: 'The Fishing Vessel Recording System is an application designed to digitally record and manage fishing vessel activities. It supports features such as vessel registration, trip logging, catch reporting, and compliance tracking with maritime regulations.', 
     image: '/portfolio/pondokdadap.png',
-    language: "-"
+    language: "CSS, jQuery, CodeIgniter, MySQL"
   },
   { 
     title: 'Edsen', 
-    description: 'Marketing landing page.', 
+    description: 'This project focuses on developing a Vendor Evaluation System for the Ministry of Public Works and Housing (PUPR). The application is designed to assess vendor performance based on multiple criteria such as project delivery, quality of work, compliance, and service reliability.', 
     image: '/portfolio/edsen.png',
-    language: "-"
+    language: "Vue, Bootstrap, PHP, MySQL"
   },
   { 
     title: 'SIDukcapil', 
-    description: 'Marketing landing page.', 
+    description: 'Sidukcapil is an application developed for the Department of Population and Civil Registration (Dispenduk) to manage population and civil registry data. The system covers key services such as resident data management, civil documents (birth, marriage, death certificates), and identity records.', 
     image: '/portfolio/sidukcapil.png',
-    language: "-"
+    language: "CSS, jQuery, CodeIgniter, MySQL"
   },
   { 
-    title: 'Academic Information System', 
-    description: 'Marketing landing page.', 
+    title: 'MasterWeb', 
+    description: 'The Academic Information System is a web-based platform designed to manage and streamline various academic activities within educational institutions. Its features include student information management, course and curriculum administration, attendance tracking, examinations, and academic reporting.', 
     image: '/portfolio/siakad.png',
-    language: "-"
+    language: "CSS, jQuery, CodeIgniter, MySQL"
   },
   { 
     title: 'MasterITN', 
-    description: 'Marketing landing page.', 
+    description: 'MasterITN is a campus management system designed to support rectorate-level operations. Unlike a standard Academic Information System that focuses primarily on student and academic activities, MasterITN extends its scope to include budget planning (RKAT), employee management, human resources, and other administrative processes.', 
     image: '/portfolio/masteritn.png',
-    language: "-"
+    language: "CSS, jQuery, CodeIgniter, MySQL"
   },
   { 
     title: 'ChatBot Whatsapp', 
-    description: 'Marketing landing page.', 
+    description: 'The WhatsApp Chatbot is an automation system built on top of Web WhatsApp and enhanced with Natural Language Processing (NLP) concepts. It enables automated interactions with users, such as answering queries, processing requests, and providing real-time information through conversational flows.', 
     image: '/portfolio/chatbot.png',
-    language: "-"
+    language: "Python, Selenium, AIML, NLP"
   },
   { 
     title: 'SILab', 
-    description: 'Marketing landing page.', 
+    description: 'SI Lab (Laboratory Information System) is a platform designed to manage and store practicum assessment data. The system allows lecturers and laboratory staff to record, organize, and track students’ performance in laboratory sessions efficiently.', 
     image: '/portfolio/silab.png',
-    language: "-"
+    language: "Bootstrap, Javascript, PHP, MySQL"
   },
   { 
     title: 'Konco Kost', 
-    description: 'Marketing landing page.', 
+    description: 'Konco Kost is a web-based platform that helps users find boarding houses (kost) nearby, integrated with the Google Maps API. The system provides detailed information about available boarding houses and includes a distance calculation feature to help users determine proximity to campuses, offices, or other key locations.', 
     image: '/portfolio/konco-kost.png',
-    language: "-"
+    language: "G-Maps API, Bootstrap, Javascript, PHP, MySQL"
   },
   { 
     title: 'Al Manahij', 
-    description: 'Marketing landing page.', 
+    description: 'Al-Manahij is a web-based platform designed to assist users in selecting appropriate methods for learning the Qur’an. The system provides guidance on different Qur’anic learning methodologies, helping students and teachers choose the approach that best suits their needs and learning styles.', 
     image: '/portfolio/al-manahij.png',
-    language: "-"
+    language: "Bootstrap, Javascript, PHP, MySQL"
   },
   { 
     title: 'Masail Fiqhiyyah', 
-    description: 'Marketing landing page.', 
+    description: 'Masail Fiqhiyyah is an information platform that provides access to a wide range of Islamic jurisprudence (fiqh) discussions. The platform organizes various fiqh topics into structured content, making it easier for users to learn, reference, and explore different perspectives on religious rulings.', 
     image: '/portfolio/masail.png',
-    language: "-"
+    language: "Bootstrap, Javascript, PHP, MySQL"
   },
 ]
 </script>

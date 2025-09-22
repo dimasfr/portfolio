@@ -72,7 +72,7 @@ const closeModal = () => {
 const experiences = [
   {
     title: "Move to Big City",
-    subtitle: "BPJS Ketenagakerjaan (Via PT. Adi Data Informatika) • South Jakarta • Nov 2023 - Present",
+    subtitle: "BPJS Ketenagakerjaan (Via PT. Adi Data Informatika) • South Jakarta • Nov 2023",
     icon: "/icon/insurance.png",
     description: "Relocating to the capital opened a new chapter in my career, where I joined a major company to develop and maintain the Eprocurement and Vendor Management Systems.",
     image: "/experience/exp-5.jpeg"
