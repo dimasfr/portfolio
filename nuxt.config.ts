@@ -12,7 +12,9 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }, // opsional
       ],
     },
+    baseURL: '/'
   },
+  ssr: false,
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['@/assets/css/tailwind.css'],

@@ -1,59 +1,95 @@
 <template>
   <div class="container mx-auto px-4 py-16">
     <h2 class="text-3xl font-bold text-center mb-12">Projects</h2>
+
+    <!-- Swiper -->
     <div class="relative">
-      
       <Swiper
-          :modules="modules"
-          :slides-per-view="3"
-          :space-between="30"
-          navigation
-          :pagination="{ el: '.custom-pagination', clickable: true }"
+        :modules="modules"
+        :slides-per-view="3"
+        :space-between="30"
+        navigation
+        :pagination="{ el: '.custom-pagination', clickable: true }"
+        :breakpoints="{
+          0: { slidesPerView: 1, spaceBetween: 16 },
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 30 }
+        }"
+      >
+        <SwiperSlide
+          v-for="(project, index) in projects"
+          :key="index"
+          @click="openModal(index)"
         >
-          <SwiperSlide 
-            v-for="(project, index) in projects" 
-            :key="index" 
-            @click="openModal(project)"
+          <div
+            class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer"
           >
-            <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer">
-              <img 
-                :src="project.image" 
-                :alt="project.title" 
-                class="w-full h-48 object-cover"
-              >
-              <div class="p-4">
-                <h4 class="text-lg font-bold text-gray-900">{{ project.title }}</h4>
-                <p class="text-gray-600">{{ project.language }}</p>
-              </div>
+            <img
+              :src="project.image"
+              :alt="project.title"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-4">
+              <h4 class="text-lg font-bold text-gray-900">{{ project.title }}</h4>
+              <p class="text-gray-600">{{ project.language }}</p>
             </div>
-          </SwiperSlide>
+          </div>
+        </SwiperSlide>
       </Swiper>
 
       <div class="custom-pagination mt-4 flex justify-center" />
     </div>
 
-    <div v-if="selectedProject" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg shadow-lg max-w-4xl w-[90%] p-8 relative">
-        <button
-          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          @click="selectedProject = null"
+    <!-- Modal -->
+    <div
+      v-if="selectedIndex !== null"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+    >
+      <div
+        class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-6 relative max-w-3xl w-[90%] p-6"
+      >
+        <!-- Close Button -->
+       <button
+          class="absolute -top-3 -right-3 bg-gray-500 rounded-xl text-white p-2 shadow-md hover:bg-red-600 transition"
+          @click="closeModal"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x-icon lucide-square-x"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
         </button>
 
-        <!-- Isi modal -->
+        <!-- Image -->
         <img
-          :src="selectedProject.image"
-          :alt="selectedProject.title"
-          class="w-full h-80 object-cover rounded-md"
-        >
-        <h4 class="text-2xl font-bold mt-4 text-gray-900">{{ selectedProject.title }}</h4>
-        <p class="text-gray-600 mt-2">{{ selectedProject.description }}</p>
+          :src="projects[selectedIndex].image"
+          :alt="projects[selectedIndex].title"
+          class="w-full h-64 sm:h-80 object-cover rounded-md"
+        />
 
-        <!-- language bisa ditambahkan nanti -->
+        <!-- Title & Desc -->
+        <h4 class="text-2xl font-bold mt-4 text-gray-900">
+          {{ projects[selectedIndex].title }}
+        </h4>
+        <p class="text-gray-600 mt-2">{{ projects[selectedIndex].description }}</p>
         <p class="mt-2 text-sm text-blue-600 italic">
-          Language: {{ selectedProject.language || 'Coming soon' }}
+          Language: {{ projects[selectedIndex].language || 'Coming soon' }}
         </p>
+
+        <!-- Navigation inside modal -->
+        <div class="flex justify-between mt-6">
+          <button
+            @click="prevProject"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md disabled:opacity-50"
+            :disabled="selectedIndex === 0"
+          >
+            ← Prev
+          </button>
+
+          <button
+            @click="nextProject"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            :disabled="selectedIndex === projects.length - 1"
+          >
+            Next →
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -61,19 +97,37 @@
 
 <script setup>
 import { ref } from "vue"
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import { Swiper, SwiperSlide } from "swiper/vue"
+import { Navigation, Pagination } from "swiper/modules"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
 
 const modules = [Navigation, Pagination]
 
-const selectedProject = ref(null)
+// state
+const selectedIndex = ref(null)
 
-const openModal = (project) => {
-  selectedProject.value = project
+// open modal by index
+const openModal = (index) => {
+  selectedIndex.value = index
+}
+
+const closeModal = () => {
+  selectedIndex.value = null
+}
+
+// modal navigation
+const nextProject = () => {
+  if (selectedIndex.value < projects.length - 1) {
+    selectedIndex.value++
+  }
+}
+
+const prevProject = () => {
+  if (selectedIndex.value > 0) {
+    selectedIndex.value--
+  }
 }
 
 const projects = [
@@ -102,13 +156,19 @@ const projects = [
     language: "React, SCSS, Node, Expess, MongoDb"
   },
   { 
+    title: 'HRIS', 
+    description: 'HRIS (Human Resource Information System) is a web-based application designed to manage and streamline various HR functions within an organization.', 
+    image: '/portfolio/hris.png',
+    language: "Vite, Vue, SCSS, Node, Express, MySQL"
+  },
+  { 
     title: 'Schoolease', 
     description: 'Schoolease is an academic management website designed to support schools and educational institutions. Beyond its core focus on information management, the platform also provides essential features such as attendance tracking and online examinations.', 
     image: '/portfolio/schoolease.png',
     language: "Vite, Vue, SCSS, Node, Express, MySQL"
   },
   { 
-    title: 'School Datastore', 
+    title: 'Datastore', 
     description: 'School Datastore is a platform focused on centralized document storage for schools. It allows educational institutions to securely manage, organize, and access important documents in one place, ensuring efficiency, and easy retrieval.', 
     image: '/portfolio/datastore.png',
     language: "Vue, Typescript, SCSS, Node, Express, MySQL"

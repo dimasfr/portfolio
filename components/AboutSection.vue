@@ -10,11 +10,11 @@
           bg-gray-100 text-gray-900 
           dark:bg-gray-800 dark:text-gray-100 transition-colors duration-300
           ">
-          With a strong foundation in both front-end and back-end technologies, I thrive
-          on turning ideas into reality. My journey began by diving into the world of coding,
-          and over the years, I've honed my skills in languages like JavaScript, PHP, and Python.
-          From designing responsive and engaging user interfaces to architecting robust server systems,
-          I take pride in delivering seamless and user-centric experiences.
+          I began my programming journey in college, sneaking in code between lectures and soon earning the trust of my thesis instructor to dive into real-world development—balancing my thesis and a first full-time role all at once. 
+          That period culminated in my proudest academic achievement: a thesis weaving together technologies I’d never touched before—NLP, AI/ML, and Python—with a project I was building. 
+          Then, alongside friends, I took the leap into entrepreneurship as a startup’s lead frontend developer—researching and designing fresh features that brought our vision to life. 
+          All this while navigating life as a newcomer in a different city—building acceptance and trust in a foreign environment without losing who I am. 
+          These experiences taught me that growth isn’t just about technology—it’s about resilience, collaboration, and staying true to yourself.
         </p>
 
         <!-- Details -->
