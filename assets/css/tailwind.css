@@ -78,3 +78,23 @@
 .blur-custom {
   @apply bg-white/90 text-slate-900 border-slate-300 text-blue-600 dark:bg-slate-900/90 dark:text-slate-100 dark:border-slate-700 dark:text-blue-400 shadow-md;
 }
+
+/* Scrollbar container */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.6);
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.9);
+}

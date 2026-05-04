@@ -63,7 +63,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white text-center py-6 text-sm sm:text-base">
-      <p>&copy; 2025 dimasfr. All rights reserved.</p>
+      <p>&copy; {{ yearText }} dimasfr. All rights reserved.</p>
     </footer>
   </div>
 </template>
@@ -71,6 +71,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 
+const yearText = new Date().getFullYear();
 const showButton = ref(false);
 
 interface LocomotiveScroll {
