@@ -29,10 +29,9 @@
         </p>
 
         <p ref="lede" class="hero-lede">
-          I build interfaces that feel considered — fast, accessible, and
-          finished down to the last interaction. From NLP-driven theses to
-          production applications, I turn ideas into things people
-          actually use.
+         I build full-stack web applications from the ground up — handling everything 
+         from frontend interfaces to backend logic and APIs. With JavaScript, PHP, and Python in my toolkit,
+          I turn ideas into products that are fast, reliable, and built to last.
         </p>
 
         <div ref="cta" class="hero-actions">
@@ -73,7 +72,7 @@
           <p><span class="t-prompt">➜</span> <span class="t-path">~</span> whoami</p>
           <p class="t-out">dimas_fajar_ramadhan</p>
           <p><span class="t-prompt">➜</span> <span class="t-path">~</span> cat stack.txt</p>
-          <p class="t-out">Vue · Nuxt · TypeScript · Tailwind · Python · NLP</p>
+          <p class="t-out">Javascript · PHP · Python</p>
           <p><span class="t-prompt">➜</span> <span class="t-path">~</span> echo $LOCATION</p>
           <p class="t-out">Jakarta, Indonesia 🇮🇩</p>
           <p>

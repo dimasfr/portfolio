@@ -1,5 +1,362 @@
 <template>
   <div ref="root" class="journey container mx-auto px-4">
+    <!-- Parallax hand-drawn fantasy-map background -->
+    <div ref="bg" class="journey-bg" aria-hidden="true">
+      <!-- defs: reusable map glyphs drawn in the sketch style of the refs -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <!-- a layered mountain range -->
+          <g id="mtn">
+            <path d="M0 60 L26 8 L42 30 L60 -4 L82 34 L104 6 L128 60 Z" />
+            <path d="M26 8 L33 26 M60 -4 L70 22 M104 6 L112 26" stroke-opacity="0.6" />
+            <path d="M8 60 Q20 50 30 60 M70 60 Q84 50 96 60" stroke-opacity="0.4" />
+          </g>
+          <!-- a small mountain -->
+          <g id="hill">
+            <path d="M0 34 L20 4 L34 22 L48 0 L66 34 Z" />
+            <path d="M20 4 L26 18 M48 0 L56 18" stroke-opacity="0.55" />
+          </g>
+          <!-- a pine tree -->
+          <g id="pine">
+            <path d="M10 0 L2 14 L7 14 L0 26 L8 26 L8 32 L12 32 L12 26 L20 26 L13 14 L18 14 Z" />
+          </g>
+          <!-- a tall conical peak with clouds (ref image 2) -->
+          <g id="spire">
+            <path d="M60 4 L40 120 Q60 132 84 120 Z" />
+            <path d="M40 120 Q30 150 10 158 M84 120 Q98 150 120 156" stroke-opacity="0.55" />
+            <path d="M48 70 L64 72 M44 96 L80 98" stroke-opacity="0.4" />
+            <path d="M-4 16 q14 -10 30 0 q14 -8 26 0" stroke-opacity="0.5" />
+            <path d="M86 30 q14 -9 28 0 q12 -7 22 0" stroke-opacity="0.5" />
+          </g>
+          
+          <!-- a castle: hilltop complex, hand-inked outline (ref image 1).
+               Symbol box 640x420; scale via width/height on <use>. -->
+          <symbol id="castle" viewBox="0 0 640 420" overflow="visible">
+            <g fill="none" stroke="var(--map-node)" stroke-linejoin="round" stroke-linecap="round">
+              <!-- GREAT KEEP -->
+              <g stroke-width="2.4">
+                <path d="M168 150 L168 300 L300 300 L300 150"/>
+                <path d="M150 150 L234 34 L318 150 Z"/>
+              </g>
+              <g stroke-width="1.2">
+                <path d="M234 34 L234 150"/>
+                <path d="M150 150 L234 70 L318 150"/>
+                <path d="M210 96 l6 8 M250 96 l6 8 M226 120 l6 8 M262 120 l6 8 M198 124 l6 8 M278 96 l6 8"/>
+                <path d="M234 34 L234 22 M228 26 l6 -4 6 4"/>
+              </g>
+              <g stroke-width="1.3">
+                <path d="M186 176 h18 v34 a9 9 0 0 0 -18 0 z M214 176 h18 v34 a9 9 0 0 0 -18 0 z M242 176 h18 v34 a9 9 0 0 0 -18 0 z M270 176 h18 v34 a9 9 0 0 0 -18 0 z"/>
+                <path d="M186 232 h18 v30 M214 232 h18 v30 M242 232 h18 v30 M270 232 h18 v30"/>
+                <path d="M186 262 h102"/>
+              </g>
+              <!-- turret beside keep -->
+              <g stroke-width="2">
+                <path d="M300 196 L300 300 L334 300 L334 196"/>
+                <path d="M294 196 L317 162 L340 196 Z"/>
+              </g>
+              <g stroke-width="1.2">
+                <path d="M317 162 L317 150 M312 154 l5 -4 5 4"/>
+                <path d="M308 214 h18 v22 a9 9 0 0 0 -18 0 z"/>
+              </g>
+              <!-- RIGHT HALL -->
+              <g stroke-width="2.2">
+                <path d="M334 232 L334 312 L520 312 L520 232 Z"/>
+                <path d="M330 232 L360 206 L500 206 L530 232 Z"/>
+              </g>
+              <g stroke-width="1.2">
+                <path d="M346 250 h16 v34 h-16 z M372 250 h16 v34 h-16 z M398 250 h16 v34 h-16 z M424 250 h16 v34 h-16 z M450 250 h16 v34 h-16 z M476 250 h16 v34 h-16 z"/>
+                <path d="M346 264 h146"/>
+                <path d="M372 206 l8 -10 8 10 M420 206 l8 -10 8 10 M468 206 l8 -10 8 10"/>
+              </g>
+              <!-- far-right pointed towers -->
+              <g stroke-width="2">
+                <path d="M520 252 L520 312 L556 312 L556 252"/>
+                <path d="M514 252 L538 214 L562 252 Z"/>
+                <path d="M556 266 L556 312 L588 312 L588 266"/>
+                <path d="M550 266 L572 232 L594 266 Z"/>
+                <path d="M588 278 L588 312 L616 312 L616 278"/>
+                <path d="M582 278 L602 248 L622 278 Z"/>
+              </g>
+              <g stroke-width="1.1">
+                <path d="M538 214 L538 202 M572 232 L572 222 M602 248 L602 240"/>
+                <path d="M528 272 h12 v16 h-12 z M562 284 h12 v14 h-12 z M594 290 h12 v12 h-12 z"/>
+              </g>
+              <!-- gate towers (lower left) -->
+              <g stroke-width="2.2">
+                <path d="M40 246 L40 320 L88 320 L88 246"/>
+                <path d="M34 246 Q64 214 94 246 Z"/>
+              </g>
+              <g stroke-width="1.2">
+                <path d="M64 214 L64 202 M58 206 l6 -4 6 4"/>
+                <path d="M50 270 h12 v16 h-12 z M68 270 h12 v16 h-12 z"/>
+                <path d="M40 300 h48"/>
+              </g>
+              <g stroke-width="2">
+                <path d="M100 230 L100 314 L136 314 L136 230"/>
+                <path d="M94 230 L118 198 L142 230 Z"/>
+              </g>
+              <g stroke-width="1.2">
+                <path d="M118 198 L118 188 M112 192 l6 -4 6 4"/>
+                <path d="M108 252 h16 v20 h-16 z"/>
+              </g>
+              <!-- curtain wall / climbing rampart -->
+              <g stroke-width="1.8">
+                <path d="M136 300 L168 300"/>
+                <path d="M88 300 L100 300"/>
+                <path d="M150 300 L160 286 L176 276 L196 268 L214 256 L228 242 L240 230"/>
+                <path d="M150 312 L160 298 L176 288 L196 280 L214 268 L228 254 L240 242"/>
+              </g>
+              <g stroke-width="1">
+                <path d="M162 284 v-6 h6 v6 M180 274 v-6 h6 v6 M200 266 v-6 h6 v6 M218 254 v-6 h6 v6 M234 240 v-6 h6 v6"/>
+                <path d="M168 292 l8 -4 M188 282 l8 -4 M208 272 l8 -4 M226 258 l8 -4"/>
+              </g>
+              <!-- wooded hill -->
+              <g stroke-width="1.6">
+                <path d="M20 330 q14 -22 34 -16 q10 -18 30 -12 q14 -16 34 -8 q16 -14 36 -6 q18 -12 38 -4 q20 -10 40 -2 q22 -8 44 0 q20 -8 42 -2 q22 -6 44 2 q24 -6 46 2 q22 -4 44 4 q24 -2 44 6 q20 0 38 8 L600 360 L20 360 Z"/>
+              </g>
+              <g stroke-width="1.3">
+                <path d="M70 358 q-14 -2 -16 -16 q-12 4 -16 -8 q-14 6 -10 18"/>
+                <path d="M150 360 q-16 0 -18 -16 q-14 2 -16 -10 q-16 6 -10 20"/>
+                <path d="M250 360 q-16 -2 -18 -16 q-12 2 -16 -8 q-16 6 -10 18"/>
+                <path d="M360 360 q-18 0 -20 -16 q-14 2 -16 -10 q-16 6 -12 20"/>
+                <path d="M470 360 q-16 -2 -18 -16 q-14 2 -16 -8 q-16 6 -10 18"/>
+                <path d="M560 360 q-16 0 -18 -16 q-12 2 -16 -8 q-14 6 -10 18"/>
+              </g>
+            </g>
+          </symbol>
+        </defs>
+      </svg>
+
+      <!-- FAR layer: faint distant ranges, scattered top→bottom -->
+      <svg
+        ref="bgGrid"
+        class="bg-layer bg-far"
+        viewBox="0 0 800 2400"
+        preserveAspectRatio="xMidYMin slice"
+      >
+        <g stroke="var(--map-line)" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round">
+          <use href="#mtn" x="40" y="120" transform="scale(1.1)" />
+          <use href="#mtn" x="560" y="80" />
+          <use href="#hill" x="300" y="220" />
+          <use href="#mtn" x="80" y="640" />
+          <use href="#hill" x="600" y="560" transform="scale(1.2)" />
+          <use href="#mtn" x="420" y="900" transform="scale(0.9)" />
+          <use href="#hill" x="120" y="1080" />
+          <use href="#mtn" x="560" y="1180" transform="scale(1.15)" />
+          <use href="#hill" x="320" y="1360" />
+          <use href="#mtn" x="60" y="1560" />
+          <use href="#hill" x="640" y="1640" />
+          <use href="#mtn" x="380" y="1820" transform="scale(1.1)" />
+          <use href="#hill" x="120" y="2040" />
+          <use href="#mtn" x="560" y="2120" />
+          <use href="#hill" x="340" y="2260" />
+        </g>
+      </svg>
+
+      <!-- MID layer: forests, rivers, single peaks -->
+      <svg
+        ref="bgPeaks"
+        class="bg-layer bg-mid"
+        viewBox="0 0 800 2400"
+        preserveAspectRatio="xMidYMin slice"
+      >
+        <!-- winding rivers threading the whole height -->
+        <g stroke="var(--map-peak)" stroke-width="1.2" fill="none" stroke-linecap="round">
+          <path d="M120 -20 Q60 240 180 420 Q280 580 160 820 Q60 1040 200 1240 Q320 1440 200 1700 Q120 1920 240 2160 Q300 2320 220 2420" stroke-opacity="0.5" />
+          <path d="M680 -20 Q740 260 620 480 Q520 700 660 940 Q760 1140 640 1400 Q540 1640 680 1900 Q760 2120 640 2420" stroke-opacity="0.5" />
+        </g>
+        <g stroke="var(--map-peak)" stroke-width="1.3" fill="none" stroke-linejoin="round" stroke-linecap="round">
+          <!-- pine clusters scattered -->
+          <use href="#pine" x="320" y="160" /><use href="#pine" x="348" y="178" /><use href="#pine" x="300" y="190" />
+          <use href="#pine" x="560" y="520" /><use href="#pine" x="588" y="540" /><use href="#pine" x="610" y="510" />
+          <use href="#pine" x="160" y="760" /><use href="#pine" x="190" y="780" /><use href="#pine" x="140" y="792" />
+          <use href="#pine" x="600" y="1080" /><use href="#pine" x="628" y="1100" />
+          <use href="#pine" x="260" y="1300" /><use href="#pine" x="288" y="1318" /><use href="#pine" x="240" y="1330" />
+          <use href="#pine" x="580" y="1560" /><use href="#pine" x="608" y="1580" /><use href="#pine" x="556" y="1592" />
+          <use href="#pine" x="200" y="1840" /><use href="#pine" x="228" y="1860" />
+          <use href="#pine" x="560" y="2080" /><use href="#pine" x="588" y="2098" /><use href="#pine" x="612" y="2070" />
+          <use href="#pine" x="300" y="2260" /><use href="#pine" x="328" y="2278" />
+          <!-- conical spires (image 2) -->
+          <use href="#spire" x="420" y="380" transform="scale(0.9)" />
+          <use href="#spire" x="120" y="1140" />
+          <use href="#spire" x="540" y="1880" transform="scale(0.85)" />
+        </g>
+      </svg>
+
+      <!-- NEAR layer: castles + floating sky-castle islands (most parallax) -->
+      <svg
+        ref="bgIslands"
+        class="bg-layer bg-near"
+        viewBox="0 0 800 2400"
+        preserveAspectRatio="xMidYMin slice"
+      >
+        <defs>
+          <!-- #skycastle — floating island, hand-inked outline style.
+               Symbol viewBox is tightened to the drawing's bounds (~600x560). -->
+          <symbol id="skycastle" viewBox="100 80 600 560" overflow="visible">
+            <g fill="none" stroke="var(--map-node)" stroke-linejoin="round" stroke-linecap="round">
+
+              <!-- ============ TOP PLATEAU RIM (irregular, lumpy) ============ -->
+              <g stroke-width="3">
+                <path d="M120 330
+                  C150 318 185 312 215 318
+                  C235 305 268 300 295 308
+                  C330 296 372 294 405 304
+                  C440 295 482 296 512 306
+                  C545 300 580 304 606 315
+                  C636 312 666 320 686 334
+                  C672 346 650 352 628 356
+                  C600 366 565 372 532 370
+                  C498 380 458 384 422 378
+                  C385 388 342 388 308 380
+                  C272 386 235 382 206 372
+                  C176 370 146 360 128 348
+                  C120 342 116 336 120 330 Z"/>
+              </g>
+
+              <!-- ============ THREE MAIN PEAKS ============ -->
+              <g stroke-width="3">
+                <!-- left peak -->
+                <path d="M218 318 L262 212 L286 246 L308 188 L342 252 L362 306"/>
+                <!-- center (tallest) peak -->
+                <path d="M340 300 L392 150 L416 196 L448 96 L486 190 L506 152 L548 296"/>
+                <!-- right peak -->
+                <path d="M530 300 L574 200 L596 238 L626 176 L660 268 L676 320"/>
+              </g>
+
+              <!-- ridge lines / facets on peaks -->
+              <g stroke-width="1.6">
+                <path d="M308 188 L316 250 L330 300"/>
+                <path d="M286 246 L296 290 L300 322"/>
+                <path d="M262 212 L256 268 L244 312"/>
+                <path d="M448 96 L452 180 L460 250 L470 310"/>
+                <path d="M416 196 L420 252 L414 312"/>
+                <path d="M392 150 L380 220 L368 286"/>
+                <path d="M486 190 L496 250 L508 308"/>
+                <path d="M626 176 L628 240 L634 300"/>
+                <path d="M596 238 L592 288 L588 318"/>
+                <path d="M574 200 L566 256 L556 300"/>
+              </g>
+
+              <!-- small hatch strokes on slopes -->
+              <g stroke-width="1.1">
+                <path d="M276 262 l10 14 M252 286 l9 12 M324 232 l9 14 M338 276 l8 12"/>
+                <path d="M404 232 l10 16 M432 168 l9 14 M468 216 l10 16 M492 262 l9 14 M438 280 l9 14"/>
+                <path d="M584 252 l9 13 M612 230 l9 14 M644 280 l8 12 M560 280 l8 12"/>
+              </g>
+
+              <!-- dashed lines: backs of the peaks on the far side -->
+              <g stroke-width="1.1" stroke-dasharray="5 6">
+                <path d="M262 212 L300 252 L342 252"/>
+                <path d="M448 96 L500 178 L548 296"/>
+                <path d="M308 188 L350 236"/>
+                <path d="M626 176 L662 240"/>
+              </g>
+
+              <!-- ============ PLATEAU SURFACE DETAIL ============ -->
+              <g stroke-width="1.3">
+                <!-- winding path / river -->
+                <path d="M212 352 C260 348 290 360 330 356 C372 350 400 362 446 358 C490 352 520 364 566 356"/>
+                <!-- rocks and scrub -->
+                <path d="M250 344 l8 -8 8 8 M268 348 l5 -5 5 5"/>
+                <path d="M470 346 l9 -9 9 9 M492 350 l6 -6 6 6"/>
+                <path d="M380 366 q6 -8 12 0 M398 370 q5 -6 10 0"/>
+              </g>
+
+              <!-- pine clusters (left ledge) -->
+              <g stroke-width="1.4">
+                <path d="M156 328 l6 -16 6 16 m-9 -8 l3 -9 3 9"/>
+                <path d="M174 332 l7 -20 7 20 m-11 -10 l4 -11 4 11"/>
+                <path d="M196 330 l6 -15 6 15"/>
+                <path d="M140 336 l5 -12 5 12"/>
+              </g>
+              <!-- pine clusters (right ledge) -->
+              <g stroke-width="1.4">
+                <path d="M598 332 l6 -16 6 16 m-9 -8 l3 -9 3 9"/>
+                <path d="M618 336 l7 -19 7 19"/>
+                <path d="M580 336 l5 -13 5 13"/>
+                <path d="M640 340 l5 -12 5 12"/>
+              </g>
+              <!-- small pines near center -->
+              <g stroke-width="1.3">
+                <path d="M352 338 l5 -13 5 13 M366 342 l4 -10 4 10"/>
+              </g>
+
+              <!-- ============ UNDERSIDE: hanging rock spikes ============ -->
+              <g stroke-width="3">
+                <path d="M128 348
+                  C140 372 150 398 146 428 L170 402 L186 452 L208 416
+                  L224 488 L252 438 L270 530 L300 462
+                  L322 560 L352 488 L378 612 L410 506
+                  L432 586 L458 498 L482 552 L506 472
+                  L534 540 L560 452 L582 500 L604 420
+                  L626 458 L644 396 L662 420 L676 360"/>
+              </g>
+
+              <!-- vertical strata / cracks on the rock face -->
+              <g stroke-width="1.5">
+                <path d="M188 384 L196 432"/>
+                <path d="M238 396 L250 470"/>
+                <path d="M286 412 L298 500"/>
+                <path d="M336 430 L350 540"/>
+                <path d="M388 446 L398 560"/>
+                <path d="M440 440 L450 540"/>
+                <path d="M494 420 L506 500"/>
+                <path d="M548 404 L558 470"/>
+                <path d="M598 380 L606 432"/>
+                <path d="M648 366 L652 404"/>
+              </g>
+
+              <!-- horizontal sediment layers, broken -->
+              <g stroke-width="1.2">
+                <path d="M150 380 q40 10 86 14 M260 400 q44 10 90 14 M376 422 q42 8 84 8"/>
+                <path d="M480 420 q44 -6 86 -14 M586 398 q38 -10 72 -20"/>
+                <path d="M176 416 q36 10 70 14 M276 442 q40 10 78 12 M380 470 q36 6 70 4"/>
+                <path d="M474 462 q40 -8 76 -16 M572 432 q34 -10 62 -18"/>
+                <path d="M250 490 q30 8 58 8 M340 520 q26 4 50 2 M430 510 q28 -4 54 -10"/>
+                <path d="M312 548 q20 4 38 2 M396 566 q18 0 34 -4"/>
+              </g>
+
+              <!-- short break/hatch marks in the rock -->
+              <g stroke-width="1">
+                <path d="M210 430 l12 4 M232 460 l11 5 M300 470 l12 4 M268 506 l10 4"/>
+                <path d="M356 510 l12 3 M386 540 l11 2 M420 540 l11 -2 M462 510 l12 -4"/>
+                <path d="M516 488 l12 -4 M552 470 l11 -5 M590 440 l11 -5 M624 408 l10 -5"/>
+                <path d="M168 396 l11 4 M154 414 l10 4"/>
+              </g>
+
+              <!-- dashed back edge of underside -->
+              <g stroke-width="1" stroke-dasharray="4 6">
+                <path d="M676 360 C660 410 630 450 596 472"/>
+                <path d="M378 612 C360 580 348 556 344 540"/>
+              </g>
+
+              <!-- drifting rock debris below -->
+              <g stroke-width="1.6">
+                <path d="M286 612 l14 -10 16 6 -6 14 -16 2 z"/>
+                <path d="M470 632 l10 -8 13 4 -3 12 -13 3 z"/>
+                <path d="M560 586 l8 -6 10 3 -2 9 -10 3 z"/>
+                <path d="M196 540 l7 -6 9 3 -2 9 -9 2 z"/>
+              </g>
+            </g>
+          </symbol>
+        </defs>
+
+        <g stroke="var(--map-node)" stroke-width="1.3" fill="none" stroke-linejoin="round" stroke-linecap="round">
+          <!-- ground castles (image 1) — symbol is 640x420, ~260px wide -->
+          <use href="#castle" x="60" y="200" width="260" height="171" />
+          <use href="#castle" x="460" y="860" width="220" height="144" />
+          <use href="#castle" x="80" y="1660" width="240" height="158" />
+        </g>
+        <!-- floating sky-islands (image 3) drift independently.
+             width/height scale the 600x560 symbol; ~200-260px wide looks right. -->
+        <g class="float-a"><use href="#skycastle" x="480" y="60" width="260" height="243" /></g>
+        <g class="float-b"><use href="#skycastle" x="80" y="600" width="210" height="196" /></g>
+        <g class="float-c"><use href="#skycastle" x="500" y="1380" width="240" height="224" /></g>
+        <g class="float-a"><use href="#skycastle" x="160" y="2000" width="220" height="206" /></g>
+      </svg>
+    </div>
+
     <header class="journey-head">
       <p class="journey-eyebrow">The Quest Log</p>
       <h2 class="journey-title font-display">My Journey</h2>
@@ -100,6 +457,12 @@ const map = ref<HTMLElement | null>(null);
 const trailFill = ref<HTMLElement | null>(null);
 const stepRefs = ref<HTMLElement[]>([]);
 
+// parallax background layers
+const bg = ref<HTMLElement | null>(null);
+const bgGrid = ref<SVGElement | null>(null);
+const bgPeaks = ref<SVGElement | null>(null);
+const bgIslands = ref<SVGElement | null>(null);
+
 // reset refs before each re-render so we don't accumulate stale nodes
 onBeforeUpdate(() => {
   stepRefs.value = [];
@@ -126,6 +489,51 @@ onMounted(() => {
   }
 
   const ctx = gsap.context(() => {
+    // --- Parallax fantasy-map background ---
+    // Each layer scrolls a different distance for depth.
+    const parallax = (el: SVGElement | null, yMove: number) => {
+      if (!el) return;
+      gsap.fromTo(
+        el,
+        { yPercent: -yMove },
+        {
+          yPercent: yMove,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.value,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        }
+      );
+    };
+    parallax(bgGrid.value, 4);     // far — slowest
+    parallax(bgPeaks.value, 9);    // mid
+    parallax(bgIslands.value, 16); // near — fastest
+
+    // Per-layer breathing fade so the layers cross-dissolve in and out.
+    gsap.to(bgGrid.value, {
+      opacity: 0.22, duration: 4.5, ease: "sine.inOut", repeat: -1, yoyo: true,
+    });
+    gsap.to(bgPeaks.value, {
+      opacity: 0.4, duration: 6, ease: "sine.inOut", repeat: -1, yoyo: true, delay: 0.8,
+    });
+    gsap.to(bgIslands.value, {
+      opacity: 0.5, duration: 5, ease: "sine.inOut", repeat: -1, yoyo: true, delay: 1.6,
+    });
+
+    // Subtle endless drift of the floating sky-castles (depth + life).
+    gsap.utils.toArray<HTMLElement>(".float-a").forEach((el) => {
+      gsap.to(el, { y: -10, x: 6, duration: 6, ease: "sine.inOut", repeat: -1, yoyo: true });
+    });
+    gsap.utils.toArray<HTMLElement>(".float-b").forEach((el) => {
+      gsap.to(el, { y: 12, x: -8, duration: 7, ease: "sine.inOut", repeat: -1, yoyo: true });
+    });
+    gsap.utils.toArray<HTMLElement>(".float-c").forEach((el) => {
+      gsap.to(el, { y: -14, duration: 5, ease: "sine.inOut", repeat: -1, yoyo: true });
+    });
+
     // Trail fills as you progress through the section.
     gsap.fromTo(
       trailFill.value,
@@ -187,10 +595,51 @@ onMounted(() => {
 .journey {
   --accent: #6366f1;
   --accent-2: #22d3ee;
+  /* 3D map backdrop palette (light) */
+  --map-line: rgba(99, 102, 241, 0.18);
+  --map-peak: rgba(99, 102, 241, 0.28);
+  --map-node: rgba(34, 211, 238, 0.4);
+  --map-fill: rgba(99, 102, 241, 0.5);
   position: relative;
   padding-top: 1rem;
   padding-bottom: 2rem;
+  overflow: hidden;
 }
+:global(.dark) .journey {
+  --map-line: rgba(129, 140, 248, 0.22);
+  --map-peak: rgba(129, 140, 248, 0.4);
+  --map-node: rgba(34, 211, 238, 0.55);
+  --map-fill: rgba(129, 140, 248, 0.55);
+}
+
+/* ---------- parallax fantasy-map background ---------- */
+.journey-bg {
+  position: absolute;
+  inset: -5% 0 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  /* fade toward the centre column so text stays readable */
+  -webkit-mask-image: radial-gradient(ellipse 92% 100% at 50% 50%, transparent 8%, #000 38%, #000 75%, transparent 100%);
+  mask-image: radial-gradient(ellipse 92% 100% at 50% 50%, transparent 8%, #000 38%, #000 75%, transparent 100%);
+}
+.bg-layer {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 116%;
+  height: 116%;
+  transform: translateX(-50%);
+  will-change: transform, opacity;
+}
+.bg-far { opacity: 0.5; }
+.bg-mid { opacity: 0.7; }
+.bg-near { opacity: 0.85; }
+
+/* keep all real content above the backdrop */
+.journey-head,
+.journey-map { position: relative; z-index: 1; }
+
 
 /* ---------- header ---------- */
 .journey-head {

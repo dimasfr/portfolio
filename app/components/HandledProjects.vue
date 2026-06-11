@@ -61,7 +61,7 @@
                 @click="openModal(project)"
               >
                 <div class="file-thumb">
-                  <img :src="project.image" :alt="project.title" >
+                  <img :src="thumbOf(project)" :alt="project.title" >
                   <span class="file-ext">{{ extOf(project.language) }}</span>
                 </div>
                 <p class="file-name">{{ project.title }}</p>
@@ -100,8 +100,33 @@
           </div>
 
           <div class="preview-stage">
-            <img :src="active.image" class="preview-bg" alt="" aria-hidden="true" >
-            <img :src="active.image" class="preview-img" :alt="active.title" >
+            <img :src="activeImages[activeSlide]" class="preview-bg" alt="" aria-hidden="true" >
+            <Transition name="slide-fade" mode="out-in">
+              <img
+                :key="activeSlide"
+                :src="activeImages[activeSlide]"
+                class="preview-img"
+                :alt="active.title"
+              >
+            </Transition>
+            <template v-if="activeImages.length > 1">
+              <button class="carousel-btn carousel-btn--prev" aria-label="Previous image" @click.stop="prevSlide">
+                <ChevronLeft class="w-5 h-5" />
+              </button>
+              <button class="carousel-btn carousel-btn--next" aria-label="Next image" @click.stop="nextSlide">
+                <ChevronRight class="w-5 h-5" />
+              </button>
+              <div class="carousel-dots">
+                <button
+                  v-for="(_, i) in activeImages"
+                  :key="i"
+                  class="carousel-dot"
+                  :class="{ 'carousel-dot--active': i === activeSlide }"
+                  :aria-label="`Go to image ${i + 1}`"
+                  @click.stop="activeSlide = i"
+                />
+              </div>
+            </template>
           </div>
 
           <div class="preview-info">
@@ -137,17 +162,41 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { projects } from "~/data/projects";
-import { ExternalLink, X, Folder, Tag, ChevronRight } from "lucide-vue-next";
+import { ExternalLink, X, Folder, Tag, ChevronRight, ChevronLeft } from "lucide-vue-next";
 import { gsap } from "gsap";
 
 interface Project {
-  image: string;
+  image: string | string[];
+  folder?: string;
   title: string;
   language?: string;
   description?: string;
   link?: string;
   tags?: string[];
 }
+
+// helpers
+const getImages = (project: Project): string[] => {
+  if (!project.image && !project.folder) return [];
+  if (Array.isArray(project.image)) {
+    return project.folder
+      ? project.image.map((f) => `${project.folder}${f}`)
+      : project.image;
+  }
+  return [project.image as string];
+};
+
+const thumbOf = (project: Project) => getImages(project)[0] ?? '';
+
+const activeSlide = ref(0);
+const activeImages = computed(() => active.value ? getImages(active.value) : []);
+
+const prevSlide = () => {
+  activeSlide.value = (activeSlide.value - 1 + activeImages.value.length) % activeImages.value.length;
+};
+const nextSlide = () => {
+  activeSlide.value = (activeSlide.value + 1) % activeImages.value.length;
+};
 
 const selectedTag = ref("All");
 const active = ref<Project | null>(null);
@@ -204,6 +253,7 @@ const extOf = (lang?: string) => {
 
 const openModal = (project: Project) => {
   active.value = project;
+  activeSlide.value = 0;
 };
 const closeModal = () => {
   active.value = null;
@@ -624,6 +674,49 @@ onMounted(() => {
   line-height: 1.5;
 }
 :global(.dark .preview-lang-value) { color: #cbd5e1; }
+
+/* carousel controls */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.55);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.carousel-btn:hover { background: rgba(15, 23, 42, 0.85); transform: translateY(-50%) scale(1.08); }
+.carousel-btn--prev { left: 0.75rem; }
+.carousel-btn--next { right: 0.75rem; }
+.carousel-dots {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+}
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.carousel-dot--active {
+  background: #fff;
+  transform: scale(1.3);
+}
+.slide-fade-enter-active, .slide-fade-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
+.slide-fade-enter-from { opacity: 0; transform: translateX(12px); }
+.slide-fade-leave-to { opacity: 0; transform: translateX(-12px); }
 
 .fade-enter-active,
 .fade-leave-active { transition: opacity 0.2s ease; }
