@@ -1,9 +1,9 @@
 export const projects = [
   {
-    title: `Melodeenes`, 
-    description: `Melodeenes is a full-featured e-commerce web application integrated with multiple third-party services. It includes a product catalog, cart & checkout flow, real-time shipping rate calculation, and order management — powered by Biteship for logistics, Midtrans for payments, Google Maps API for address handling, and Firebase google authentication.`, 
-    folder: '/projects/melodeenes/',
-    image: ['1.webp', '2.webp', '3.webp', '4.webp', '5.webp'],
+    title: `Pi Ai Pi`, 
+    description: `Pi Ai Pi is a full-featured e-commerce web application integrated with multiple third-party services. It includes a product catalog, cart & checkout flow, real-time shipping rate calculation, and order management — powered by Biteship for logistics, Midtrans for payments, Google Maps API for address handling, and Firebase google authentication.`, 
+    folder: '/projects/piaipi/',
+    image: ['1.gif', '2.webp', '3.webp', '4.webp', '5.webp', '6.webp', '7.webp', '8.webp', '9.webp', '10.webp'],
     language: "Nuxt, Nest, MySQL, Firebase, Google Maps API, Biteship, Midtrans",
     tags: ["E-commerce"],
     link: ""
