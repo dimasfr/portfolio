@@ -1,10 +1,19 @@
 export const projects = [
   {
-    title: `Pi Ai Pi`, 
-    description: `Pi Ai Pi is a full-featured e-commerce web application integrated with multiple third-party services. It includes a product catalog, cart & checkout flow, real-time shipping rate calculation, and order management — powered by Biteship for logistics, Midtrans for payments, Google Maps API for address handling, and Firebase google authentication.`, 
+    title: `Homie Table`,
+    description: `Homie Table is a Roll20-style Virtual Tabletop for playing Dungeons & Dragons multiplayer in real time. It provides a server-authoritative shared table for 1 DM and 2-8 players — grid-based battle maps with pan/zoom, draggable tokens, fog of war, dice roller, initiative tracker, and chat — plus a creature-centric character system with SRD 5e-driven autofill for species, classes, spells, feats, and equipment.`,
+    folder: '/projects/vtt/',
+    image: ['1.gif', '2.webp', '3.webp', '4.webp', '5.webp', '6.webp', '7.webp', '8.webp'],
+    language: "Nuxt, Vue, TypeScript, PixiJS, Pinia, NestJS, Socket.IO, PostgreSQL, Drizzle ORM, Redis",
+    tags: ["Personal"],
+    link: ""
+  },
+  {
+    title: `Pi Ai Pi`,
+    description: `Pi Ai Pi is an Indonesian e-commerce storefront for a gift & snack brand, covering the full order lifecycle from browsing to delivery. It features a product catalog with variants, persistent cart & checkout, coupons, a digital message card (giftcard) add-on with shareable QR link, admin-curated reviews, and a full back-office admin panel — integrated with Firebase Google Authentication, Midtrans Snap for payments, and Biteship for live shipping rates, booking, tracking and PDF label generation.`,
     folder: '/projects/piaipi/',
     image: ['1.gif', '2.webp', '3.webp', '4.webp', '5.webp', '6.webp', '7.webp', '8.webp', '9.webp', '10.webp'],
-    language: "Nuxt, Nest, MySQL, Firebase, Google Maps API, Biteship, Midtrans",
+    language: "Nuxt, Vue, TypeScript, Pinia, NestJS, Drizzle ORM, MySQL, Firebase, Midtrans, Biteship",
     tags: ["E-commerce"],
     link: ""
   },

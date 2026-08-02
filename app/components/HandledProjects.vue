@@ -105,8 +105,9 @@
               <img
                 :key="activeSlide"
                 :src="activeImages[activeSlide]"
-                class="preview-img"
+                class="preview-img preview-img--zoomable"
                 :alt="active.title"
+                @click.stop="openLightbox"
               >
             </Transition>
             <template v-if="activeImages.length > 1">
@@ -153,6 +154,34 @@
             <p class="preview-desc">{{ active.description }}</p>
           </div>
           </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- Lightbox — full-size image view -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="isLightboxOpen" class="lightbox-overlay" @click.self="closeLightbox">
+          <button class="lightbox-x" aria-label="Close" @click="closeLightbox">
+            <X class="w-5 h-5" />
+          </button>
+          <template v-if="activeImages.length > 1">
+            <button class="carousel-btn carousel-btn--prev lightbox-nav" aria-label="Previous image" @click.stop="prevSlide">
+              <ChevronLeft class="w-6 h-6" />
+            </button>
+            <button class="carousel-btn carousel-btn--next lightbox-nav" aria-label="Next image" @click.stop="nextSlide">
+              <ChevronRight class="w-6 h-6" />
+            </button>
+          </template>
+          <Transition name="slide-fade" mode="out-in">
+            <img
+              :key="activeSlide"
+              :src="activeImages[activeSlide]"
+              class="lightbox-img"
+              :alt="active?.title"
+              @click.stop
+            >
+          </Transition>
         </div>
       </Transition>
     </Teleport>
@@ -257,6 +286,14 @@ const openModal = (project: Project) => {
 };
 const closeModal = () => {
   active.value = null;
+};
+
+const isLightboxOpen = ref(false);
+const openLightbox = () => {
+  isLightboxOpen.value = true;
+};
+const closeLightbox = () => {
+  isLightboxOpen.value = false;
 };
 
 onMounted(() => {
@@ -516,7 +553,7 @@ onMounted(() => {
 .file-leave-to { opacity: 0; }
 
 @media (max-width: 640px) {
-  .finder-body { grid-template-columns: 1fr; }
+  .finder-body { grid-template-columns: 1fr; min-height: 0; }
   .finder-side {
     display: flex;
     gap: 0.4rem;
@@ -527,6 +564,7 @@ onMounted(() => {
   .side-heading { display: none; }
   .side-item { width: auto; white-space: nowrap; }
   .finder-count { display: none; }
+  .finder-main { min-height: 340px; }
 }
 
 /* ---------- preview modal ---------- */
@@ -595,6 +633,45 @@ onMounted(() => {
   border-radius: 0.5rem;
   box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.7);
 }
+.preview-img--zoomable { cursor: zoom-in; }
+
+/* lightbox */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(4px);
+  padding: 2rem;
+}
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0.4rem;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  cursor: zoom-out;
+}
+.lightbox-x {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: background 0.15s ease;
+}
+.lightbox-x:hover { background: rgba(255, 255, 255, 0.2); }
+.lightbox-nav.carousel-btn { top: 50%; }
 .preview-info { padding: 1.25rem 1.4rem 1.5rem; }
 .preview-titlerow {
   display: flex;

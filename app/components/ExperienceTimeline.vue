@@ -20,6 +20,42 @@
           <g id="pine">
             <path d="M10 0 L2 14 L7 14 L0 26 L8 26 L8 32 L12 32 L12 26 L20 26 L13 14 L18 14 Z" />
           </g>
+          <!-- a distant bird, a simple double-arc wing shape -->
+          <g id="bird">
+            <path d="M0 6 Q5 0 10 6 Q15 0 20 6" />
+          </g>
+          <!-- a hot air balloon, drifting decoration -->
+          <symbol id="balloon" viewBox="0 0 60 96" overflow="visible">
+            <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+              <path stroke-width="1.6" d="M30 2 C10 2 4 26 12 42 C17 52 24 56 24 64 h12 c0 -8 7 -12 12 -22 C56 26 50 2 30 2 Z"/>
+              <path stroke-width="1" stroke-opacity="0.6" d="M30 2 C24 20 24 46 24 64 M30 2 C36 20 36 46 36 64 M12 42 C20 46 40 46 48 42"/>
+              <path stroke-width="1.2" d="M24 64 L18 78 M36 64 L42 78"/>
+              <path stroke-width="1.4" d="M18 78 h24 v10 h-24 Z"/>
+            </g>
+          </symbol>
+          <!-- a windmill with rotating sails -->
+          <symbol id="windmill" viewBox="0 0 120 160" overflow="visible">
+            <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+              <path stroke-width="2" d="M46 160 L52 60 L68 60 L74 160 Z"/>
+              <path stroke-width="1.2" d="M50 130 h20 M48 100 h24 M52 76 h16"/>
+              <path stroke-width="1.4" d="M42 60 h36 l-6 -12 h-24 Z"/>
+              <g class="windmill-sails" style="transform-origin: 60px 54px;">
+                <circle cx="60" cy="54" r="3" stroke-width="1.4"/>
+                <path stroke-width="1.6" d="M60 54 L60 14 L48 6 M60 54 L60 14 L72 6"/>
+                <path stroke-width="1.6" d="M60 54 L98 54 L106 44 M60 54 L98 54 L106 64"/>
+                <path stroke-width="1.6" d="M60 54 L60 94 L72 102 M60 54 L60 94 L48 102"/>
+                <path stroke-width="1.6" d="M60 54 L22 54 L14 64 M60 54 L22 54 L14 44"/>
+              </g>
+            </g>
+          </symbol>
+          <!-- a faint glowing magic rune -->
+          <symbol id="rune" viewBox="0 0 40 40" overflow="visible">
+            <g fill="none" stroke-linejoin="round" stroke-linecap="round" class="rune-glow">
+              <circle cx="20" cy="20" r="16" stroke-width="1"/>
+              <path stroke-width="1.3" d="M20 6 L20 34 M10 12 L30 28 M30 12 L10 28"/>
+              <circle cx="20" cy="20" r="3" stroke-width="1" fill="currentColor" fill-opacity="0.4"/>
+            </g>
+          </symbol>
           <!-- a tall conical peak with clouds (ref image 2) -->
           <g id="spire">
             <path d="M60 4 L40 120 Q60 132 84 120 Z" />
@@ -112,7 +148,7 @@
               </g>
               <!-- wooded hill -->
               <g stroke-width="1.6">
-                <path d="M20 330 q14 -22 34 -16 q10 -18 30 -12 q14 -16 34 -8 q16 -14 36 -6 q18 -12 38 -4 q20 -10 40 -2 q22 -8 44 0 q20 -8 42 -2 q22 -6 44 2 q24 -6 46 2 q22 -4 44 4 q24 -2 44 6 q20 0 38 8 L600 360 L20 360 Z"/>
+                <path d="M20 330 q14 -22 34 -16 q10 -18 30 -12 q14 -16 34 -8 q16 -14 36 -6 q18 -12 38 -4 q20 -10 40 -2 q22 -8 44 0 q20 -8 42 -2 q22 -6 44 2 q24 -6 46 2 q22 -4 44 4 q24 -2 44 6 q18 -6 40 2 q18 -4 36 6 q16 2 34 10 q14 10 26 24 L640 360 L20 360 Z"/>
               </g>
               <g stroke-width="1.3">
                 <path d="M70 358 q-14 -2 -16 -16 q-12 4 -16 -8 q-14 6 -10 18"/>
@@ -180,6 +216,22 @@
           <use href="#spire" x="420" y="380" transform="scale(0.9)" />
           <use href="#spire" x="120" y="1140" />
           <use href="#spire" x="540" y="1880" transform="scale(0.85)" />
+        </g>
+        <!-- flocks of birds drifting in the distance -->
+        <g stroke="var(--map-peak)" stroke-width="1.4" fill="none" stroke-linecap="round">
+          <use href="#bird" x="500" y="60" /><use href="#bird" x="524" y="72" /><use href="#bird" x="548" y="58" />
+          <use href="#bird" x="90" y="440" /><use href="#bird" x="112" y="452" />
+          <use href="#bird" x="660" y="740" /><use href="#bird" x="684" y="750" /><use href="#bird" x="706" y="736" />
+          <use href="#bird" x="220" y="1000" /><use href="#bird" x="244" y="1012" />
+          <use href="#bird" x="520" y="1440" /><use href="#bird" x="544" y="1452" /><use href="#bird" x="566" y="1438" />
+          <use href="#bird" x="100" y="1720" /><use href="#bird" x="124" y="1732" />
+          <use href="#bird" x="620" y="2160" /><use href="#bird" x="644" y="2172" /><use href="#bird" x="666" y="2158" />
+        </g>
+        <!-- windmills dotting the hillsides -->
+        <g stroke="var(--map-peak)" stroke-linejoin="round" stroke-linecap="round">
+          <use href="#windmill" x="500" y="220" width="70" height="94" class="windmill" />
+          <use href="#windmill" x="140" y="1060" width="60" height="80" class="windmill" />
+          <use href="#windmill" x="600" y="2060" width="65" height="86" class="windmill" />
         </g>
       </svg>
 
@@ -338,6 +390,42 @@
                 <path d="M560 586 l8 -6 10 3 -2 9 -10 3 z"/>
                 <path d="M196 540 l7 -6 9 3 -2 9 -9 2 z"/>
               </g>
+
+              <!-- ============ ancient ruin pillars on the plateau ============ -->
+              <g stroke-width="1.5">
+                <path d="M262 340 v-30 M262 310 h-6 M262 310 h6"/>
+                <path d="M280 344 v-22 M280 322 h-5 M280 322 h5"/>
+                <path d="M420 348 v-34 M420 314 h-7 M420 314 h7 M420 330 h-6 M420 330 h6"/>
+                <path d="M300 348 L318 336" stroke-dasharray="2 4"/>
+              </g>
+
+              <!-- ============ mist wisps around the underside, reinforcing the floating feel ============ -->
+              <g stroke-width="1.1" stroke-opacity="0.55">
+                <path d="M96 420 q18 8 36 0 q18 8 36 0"/>
+                <path d="M60 470 q20 9 40 0 q20 9 40 0"/>
+                <path d="M560 440 q18 8 36 0 q18 8 36 0"/>
+                <path d="M600 490 q20 9 40 0 q20 9 40 0"/>
+                <path d="M300 560 q22 9 44 0 q22 9 44 0"/>
+              </g>
+
+              <!-- ============ WATERFALL off the left ledge ============ -->
+              <g stroke-width="1.3" stroke-dasharray="3 4">
+                <path d="M182 372 C178 400 184 428 176 456 C170 480 178 504 172 528"/>
+                <path d="M196 378 C192 404 198 430 190 456 C186 478 192 500 186 522"/>
+              </g>
+              <g stroke-width="1">
+                <path d="M164 534 q8 -4 16 0 M172 544 q8 -4 16 0"/>
+                <circle cx="168" cy="538" r="1.6" fill="var(--map-node)" stroke="none"/>
+                <circle cx="188" cy="528" r="1.3" fill="var(--map-node)" stroke="none"/>
+                <circle cx="178" cy="552" r="1.4" fill="var(--map-node)" stroke="none"/>
+              </g>
+
+              <!-- ============ birds circling the island ============ -->
+              <g stroke-width="1.4" class="skycastle-birds">
+                <path d="M120 200 q8 -8 16 0 q8 -8 16 0"/>
+                <path d="M560 160 q7 -7 14 0 q7 -7 14 0"/>
+                <path d="M660 260 q6 -6 12 0 q6 -6 12 0"/>
+              </g>
             </g>
           </symbol>
         </defs>
@@ -354,6 +442,21 @@
         <g class="float-b"><use href="#skycastle" x="80" y="600" width="210" height="196" /></g>
         <g class="float-c"><use href="#skycastle" x="500" y="1380" width="240" height="224" /></g>
         <g class="float-a"><use href="#skycastle" x="160" y="2000" width="220" height="206" /></g>
+
+        <!-- hot air balloons, drifting -->
+        <g stroke="var(--map-node)" fill="none">
+          <g class="float-b"><use href="#balloon" x="640" y="420" width="40" height="64" /></g>
+          <g class="float-c"><use href="#balloon" x="60" y="1180" width="34" height="54" /></g>
+          <g class="float-a"><use href="#balloon" x="700" y="1740" width="38" height="60" /></g>
+        </g>
+
+        <!-- faint glowing magic runes along the path -->
+        <g stroke="var(--map-node)" fill="none" color="var(--map-node)">
+          <use href="#rune" x="230" y="500" width="26" height="26" class="rune" />
+          <use href="#rune" x="540" y="1060" width="22" height="22" class="rune" />
+          <use href="#rune" x="150" y="1560" width="24" height="24" class="rune" />
+          <use href="#rune" x="600" y="2200" width="20" height="20" class="rune" />
+        </g>
       </svg>
     </div>
 
@@ -370,6 +473,7 @@
       <!-- Trail spine -->
       <div class="trail" aria-hidden="true">
         <div class="trail-base" />
+        <div class="trail-footprints" />
         <div ref="trailFill" class="trail-fill" />
       </div>
 
@@ -636,9 +740,32 @@ onMounted(() => {
 .bg-mid { opacity: 0.7; }
 .bg-near { opacity: 0.85; }
 
+.skycastle-birds path {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: skycastle-flap 2.4s ease-in-out infinite;
+}
+.skycastle-birds path:nth-child(2) { animation-duration: 2s; animation-delay: 0.3s; }
+.skycastle-birds path:nth-child(3) { animation-duration: 2.6s; animation-delay: 0.6s; }
+@keyframes skycastle-flap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.45); }
+}
+
 /* keep all real content above the backdrop */
 .journey-head,
 .journey-map { position: relative; z-index: 1; }
+
+/* windmill sails spinning slowly */
+.windmill-sails { animation: windmill-spin 8s linear infinite; transform-box: fill-box; }
+@keyframes windmill-spin { to { transform: rotate(360deg); } }
+
+/* magic runes pulsing with a faint glow */
+.rune-glow { animation: rune-pulse 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes rune-pulse {
+  0%, 100% { opacity: 0.35; filter: drop-shadow(0 0 0 currentColor); }
+  50% { opacity: 0.9; filter: drop-shadow(0 0 4px currentColor); }
+}
 
 
 /* ---------- header ---------- */
@@ -703,6 +830,26 @@ onMounted(() => {
   background: linear-gradient(to bottom, var(--accent), var(--accent-2));
   box-shadow: 0 0 14px rgba(99, 102, 241, 0.55);
 }
+
+/* footprint trail — a repeating pair of left/right footprints, toes pointing down (start → finish) */
+.trail-footprints {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 100%;
+  transform: translateX(-50%);
+  background-color: rgba(100, 116, 139, 0.45);
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  -webkit-mask-position: top center;
+  mask-position: top center;
+  -webkit-mask-size: 24px 44px;
+  mask-size: 24px 44px;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='44'%3E%3Cg transform='translate(3,2) rotate(-8 4 7)'%3E%3Ccircle cx='4' cy='2' r='2'/%3E%3Cellipse cx='4' cy='8.4' rx='3' ry='4.6'/%3E%3C/g%3E%3Cg transform='translate(13,24) rotate(8 4 7)'%3E%3Ccircle cx='4' cy='2' r='2'/%3E%3Cellipse cx='4' cy='8.4' rx='3' ry='4.6'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='44'%3E%3Cg transform='translate(3,2) rotate(-8 4 7)'%3E%3Ccircle cx='4' cy='2' r='2'/%3E%3Cellipse cx='4' cy='8.4' rx='3' ry='4.6'/%3E%3C/g%3E%3Cg transform='translate(13,24) rotate(8 4 7)'%3E%3Ccircle cx='4' cy='2' r='2'/%3E%3Cellipse cx='4' cy='8.4' rx='3' ry='4.6'/%3E%3C/g%3E%3C/svg%3E");
+}
+:global(.dark) .trail-footprints { background-color: rgba(148, 163, 184, 0.4); }
 
 /* ---------- checkpoints / flags ---------- */
 .checkpoint--flag {
