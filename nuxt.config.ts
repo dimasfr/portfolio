@@ -10,7 +10,13 @@ export default defineNuxtConfig({
       title: 'Portfolio of dimasfr',
       meta: [
         { name: 'description', content: 'Personal portfolio of Dimas Fajar Ramadhan' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // viewport-fit=cover lets the layout draw under the notch / home indicator (see pt-safe / pb-safe).
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
+        { name: 'theme-color', content: '#0a0e1a' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { name: 'apple-mobile-web-app-title', content: 'dimasfr' },
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/logo-black.png' },

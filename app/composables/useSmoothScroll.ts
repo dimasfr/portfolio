@@ -8,14 +8,15 @@ export function useSmoothScroll() {
   const { $lenis } = useNuxtApp() as unknown as { $lenis: Lenis };
 
   // Sticky navbar height — sections land just below it.
-  const NAV_OFFSET = -84;
+  // The header is shorter on phones (no link row), so land closer to the top there.
+  const navOffset = () => (window.matchMedia("(max-width: 767px)").matches ? -64 : -84);
 
   const scrollToSection = (target: string) => {
     if (!$lenis) {
       document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
       return;
     }
-    $lenis.scrollTo(target, { offset: NAV_OFFSET, duration: 1.4 });
+    $lenis.scrollTo(target, { offset: navOffset(), duration: 1.4 });
   };
 
   const scrollToTop = () => {

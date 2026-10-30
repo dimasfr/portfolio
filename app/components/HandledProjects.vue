@@ -130,7 +130,7 @@
             </template>
           </div>
 
-          <div class="preview-info">
+          <div class="preview-info" data-lenis-prevent>
             <div class="preview-titlerow">
               <h4>{{ active.title }}</h4>
               <a
@@ -580,15 +580,25 @@ onMounted(() => {
   padding: 1rem;
 }
 .preview {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 46rem;
+  /* Never taller than the screen: the bar (with the close button) stays put, the info scrolls. */
+  max-height: calc(100dvh - 2rem);
   border-radius: 0.9rem;
   overflow: hidden;
   background: #fff;
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.65);
 }
 :global(.dark .preview) { background: #0f172a; }
+.preview-info {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .preview-bar {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -609,7 +619,8 @@ onMounted(() => {
 .preview-x:hover { color: #dc2626; }
 .preview-stage {
   position: relative;
-  height: 320px;
+  flex-shrink: 0;
+  height: min(320px, 32dvh);
   display: grid;
   place-items: center;
   overflow: hidden;

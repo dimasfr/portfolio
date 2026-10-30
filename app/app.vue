@@ -35,9 +35,12 @@
 
     <TopPage />
 
-    <footer class="bg-gray-900 text-white text-center py-6 text-sm sm:text-base">
+    <!-- Phones: footer reserves room for the fixed bottom tab bar. -->
+    <footer class="bg-gray-900 text-white text-center py-6 text-sm sm:text-base max-md:pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
       <p>&copy; {{ yearText }} dimasfr. All rights reserved.</p>
     </footer>
+
+    <MobileTabBar />
   </div>
 </template>
 

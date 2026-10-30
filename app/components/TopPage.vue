@@ -2,7 +2,7 @@
   <Transition name="top-fade">
     <button
       v-show="showButton"
-      class="fixed bottom-6 right-6 z-40 grid place-items-center h-12 w-12 rounded-full
+      class="max-md:hidden fixed bottom-6 right-6 z-40 grid place-items-center h-12 w-12 rounded-full
              bg-blue-500 text-white shadow-lg shadow-blue-500/40
              hover:bg-blue-600 hover:-translate-y-0.5 active:translate-y-0 transition"
       aria-label="Back to top"

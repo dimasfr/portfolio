@@ -10,7 +10,7 @@
     <div
       class="relative z-10 container mx-auto px-4 sm:px-8
              grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center
-             min-h-[calc(100vh-80px)] py-20"
+             min-h-[calc(100dvh-80px)] py-20"
     >
       <!-- Left: copy -->
       <div class="max-w-xl">

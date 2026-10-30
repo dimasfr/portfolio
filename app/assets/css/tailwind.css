@@ -67,6 +67,34 @@
   }
 }
 
+/* App-like mobile behaviour: no grey tap flash, no 300ms double-tap-zoom delay. */
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a,
+summary,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Safe-area helpers (notch / home indicator) — need viewport-fit=cover, set in nuxt.config. */
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@layer components {
+  /* Tactile press feedback for tappable things (tab bar, chips, big buttons). */
+  .app-press {
+    @apply transition active:scale-95;
+  }
+}
+
 .dark-custom {
   @apply bg-white text-slate-900 border-slate-300 text-blue-600 dark:bg-slate-950 dark:text-slate-100 dark:border-slate-700 dark:text-blue-400 transition-colors duration-300;
 }

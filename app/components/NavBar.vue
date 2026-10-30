@@ -1,7 +1,7 @@
 <template>
   <header
     :class="[
-      'sticky top-0 z-50 backdrop-blur-md transition-colors duration-300',
+      'sticky top-0 z-50 pt-safe backdrop-blur-md transition-colors duration-300',
       isScrolled
         ? 'bg-white/80 dark:bg-[#0a0e1a]/80 border-b border-gray-200/60 dark:border-white/10 shadow-sm'
         : 'bg-transparent'
@@ -9,7 +9,7 @@
   >
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
       <!-- Logo -->
-      <Button variant="ghost" class="px-1" @click="scrollToTop">
+      <Button variant="ghost" class="app-press px-1" @click="scrollToTop">
         <div class="relative inline-block">
           <img src="/logo-black.png" alt="Logo" class="h-9 relative z-10 dark:hidden" >
           <img src="/logo-white.png" alt="Logo" class="h-9 relative z-10 hidden dark:block" >
@@ -17,7 +17,7 @@
       </Button>
 
       <!-- Navigation -->
-      <NavigationMenu>
+      <NavigationMenu class="max-md:hidden">
         <NavigationMenuList>
           <NavigationMenuItem v-for="item in links" :key="item.id">
             <NavigationMenuLink as-child>
